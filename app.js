@@ -328,6 +328,13 @@ function renderSettings() {
   })).filter(c => c.count > 0);
 
   document.getElementById('settings-total').textContent = total;
+
+  // Auto-fill the iOS Shortcut URL with the real deployed origin
+  const iosHint = document.getElementById('ios-url-hint');
+  if (iosHint) {
+    iosHint.textContent = `${location.origin}/share-target?url=`;
+  }
+
   document.getElementById('settings-cat-list').innerHTML = byCategory.map(c => `
     <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(190,202,183,0.2)">
       <div style="display:flex;align-items:center;gap:10px">

@@ -218,6 +218,56 @@
         </button>
       </div>
 
+      <!-- iOS Share Sheet Setup -->
+      <div class="form-card" style="margin:0;gap:16px" id="ios-card">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#007AFF,#5856D6);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <span class="material-symbols-outlined" style="font-size:20px;color:white">ios_share</span>
+          </div>
+          <div>
+            <h2 style="font-size:16px;font-weight:700;line-height:1.2">iPhone Share Sheet</h2>
+            <p style="font-size:12px;color:var(--on-surface-var);margin-top:2px">Add LinkDrop to iOS share sheet via Shortcuts</p>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,122,255,0.06);border:1px solid rgba(0,122,255,0.15);border-radius:12px;padding:14px;font-size:13px;line-height:1.6;color:var(--on-surface-var)">
+          iOS doesn't support Web Share Target for PWAs. Use the <strong style="color:var(--on-surface)">Shortcuts app</strong> to add LinkDrop to your share sheet in 60 seconds:
+        </div>
+
+        <ol style="list-style:none;display:flex;flex-direction:column;gap:12px;padding:0;margin:0">
+          <li style="display:flex;gap:12px;align-items:flex-start">
+            <span style="min-width:24px;height:24px;border-radius:50%;background:var(--primary);color:white;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+            <span style="font-size:14px;color:var(--on-surface);padding-top:2px">Open the <strong>Shortcuts</strong> app → tap <strong>+</strong> to create a new shortcut</span>
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start">
+            <span style="min-width:24px;height:24px;border-radius:50%;background:var(--primary);color:white;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">2</span>
+            <span style="font-size:14px;color:var(--on-surface);padding-top:2px">Tap the <strong>⚙️ Settings icon</strong> (top right) → enable <strong>"Show in Share Sheet"</strong> → set <em>Receive</em> to <strong>URLs</strong></span>
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start">
+            <span style="min-width:24px;height:24px;border-radius:50%;background:var(--primary);color:white;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">3</span>
+            <span style="font-size:14px;color:var(--on-surface);padding-top:2px">Tap <strong>"Add Action"</strong> → search for <strong>"Open URLs"</strong> → select it</span>
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start">
+            <span style="min-width:24px;height:24px;border-radius:50%;background:var(--primary);color:white;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">4</span>
+            <span style="font-size:14px;color:var(--on-surface);padding-top:2px">In the URL field tap <strong>"URL"</strong> → delete it → tap the <strong>variable icon (⊕)</strong> → pick <strong>"Shortcut Input"</strong></span>
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start">
+            <span style="min-width:24px;height:24px;border-radius:50%;background:var(--primary);color:white;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">5</span>
+            <span style="font-size:14px;color:var(--on-surface);padding-top:2px">Before the variable, type your app URL:<br/>
+              <code id="ios-url-hint" style="font-size:12px;background:var(--surface-high);padding:4px 8px;border-radius:6px;display:inline-block;margin-top:4px;word-break:break-all;color:var(--primary)">https://your-linkdrop-url.vercel.app/share-target?url=</code>
+            </span>
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start">
+            <span style="min-width:24px;height:24px;border-radius:50%;background:var(--primary);color:white;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">6</span>
+            <span style="font-size:14px;color:var(--on-surface);padding-top:2px">Name it <strong>"Save to LinkDrop"</strong> → tap <strong>Done</strong> ✅</span>
+          </li>
+        </ol>
+
+        <div style="background:rgba(0,108,12,0.06);border:1px solid rgba(0,108,12,0.15);border-radius:10px;padding:12px;font-size:13px;color:var(--on-surface-var)">
+          🎉 Now when you share any link from Safari, YouTube, Instagram etc — tap <strong style="color:var(--on-surface)">Save to LinkDrop</strong> in the share sheet and the app opens with the URL pre-filled.
+        </div>
+      </div>
+
       <!-- About -->
       <div class="form-card" style="margin:0">
         <p style="font-size:14px;color:var(--on-surface-var);text-align:center;line-height:1.6">

@@ -78,13 +78,28 @@ After deploying:
 
 ---
 
-## 🍎 Installing on iPhone / iOS
+## 🍎 Installing on iPhone + Share Sheet Setup
 
+iOS Safari does **not** support Web Share Target for PWAs — but you can get the same one-tap sharing experience using the **Shortcuts app**. It takes 60 seconds to set up.
+
+### Step 1 — Add to Home Screen
 1. Open **Safari** → visit your deployed URL
 2. Tap the Share button → **Add to Home Screen** → **Add**
-3. ✅ App icon appears on your home screen
 
-> **Note:** iOS Safari does not support Web Share Target as of iOS 17. Use the **Add** button inside the app to save links manually on iOS.
+### Step 2 — Create the Shortcut
+1. Open the **Shortcuts** app → tap **+** (top right)
+2. Tap the **⚙️ Settings icon** → enable **"Show in Share Sheet"** → set *Receive* to **URLs**
+3. Tap **Add Action** → search **"Open URLs"** → select it
+4. In the URL field, tap **"URL"** → delete it → tap **⊕** → pick **"Shortcut Input"**
+5. Before the variable token, type your full share-target URL:
+   ```
+   https://your-linkdrop-url.vercel.app/share-target?url=
+   ```
+   > 💡 The exact URL is shown in the app under **Settings → iPhone Share Sheet**
+6. Name it **"Save to LinkDrop"** → tap **Done**
+
+### Done! ✅
+Now from any app — Safari, YouTube, Instagram — tap **Share** → **Save to LinkDrop** → the app opens with the URL pre-filled, ready to save.
 
 ---
 
