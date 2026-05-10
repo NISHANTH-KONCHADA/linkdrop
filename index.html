@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>LinkDrop — Your Personal Link Inbox</title>
+  <meta name="description" content="Save any link from any app. Search, browse by category, and never lose a link again." />
+  <meta name="theme-color" content="#006c0c" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="LinkDrop" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<div id="app">
+
+  <!-- ── HOME PAGE ──────────────────────────────────────────── -->
+  <div id="page-home" class="page">
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo" onclick="navigate('home')">
+          <span class="material-symbols-outlined icon-fill">link</span>
+          <span class="logo-text">LinkDrop</span>
+        </div>
+        <div class="avatar" title="Profile">L</div>
+      </div>
+    </header>
+
+    <div class="search-wrap">
+      <div class="search-box">
+        <span class="material-symbols-outlined">search</span>
+        <input id="search-input" class="search-input" type="search"
+          placeholder="Search saved links…" autocomplete="off" />
+      </div>
+    </div>
+
+    <div id="stats-bar" class="stats-bar"></div>
+
+    <div id="category-pills" class="pills-wrap"></div>
+
+    <div id="cards-grid" class="cards-grid"></div>
+  </div>
+
+  <!-- ── ADD PAGE ───────────────────────────────────────────── -->
+  <div id="page-add" class="page form-page">
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo" onclick="navigate('home')">
+          <span class="material-symbols-outlined icon-fill">link</span>
+          <span class="logo-text">LinkDrop</span>
+        </div>
+        <div class="avatar">L</div>
+      </div>
+    </header>
+
+    <div class="form-header">
+      <button class="back-btn" onclick="navigate('home')">
+        <span class="material-symbols-outlined">arrow_back</span> Back
+      </button>
+      <h1>Add New Link</h1>
+      <p>Paste a URL below to save it to your collection.</p>
+    </div>
+
+    <div class="form-card">
+      <div>
+        <label class="field-label" for="form-url">URL</label>
+        <div class="field-input-wrap">
+          <span class="material-symbols-outlined">link</span>
+          <input id="form-url" class="field-input" type="url"
+            placeholder="Paste your link here…" autocomplete="off" />
+        </div>
+      </div>
+      <div>
+        <label class="field-label" for="form-title">Title</label>
+        <div class="field-input-wrap">
+          <span class="material-symbols-outlined">title</span>
+          <input id="form-title" class="field-input" type="text"
+            placeholder="Give it a memorable name…" />
+        </div>
+      </div>
+      <div>
+        <label class="field-label">Category</label>
+        <div id="form-cats" class="cat-pills"></div>
+      </div>
+      <div>
+        <label class="field-label" for="form-note">Note <span style="font-weight:400;color:var(--on-surface-var)">(Optional)</span></label>
+        <textarea id="form-note" class="textarea-field"
+          placeholder="Add a quick thought or key takeaway…" rows="3"></textarea>
+      </div>
+      <button class="save-btn" onclick="saveLink(false)">
+        <span class="material-symbols-outlined">bookmark_add</span>
+        Save Link
+      </button>
+    </div>
+  </div>
+
+  <!-- ── SHARE-TARGET PAGE ──────────────────────────────────── -->
+  <div id="page-share" class="page form-page">
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo" onclick="navigate('home')">
+          <span class="material-symbols-outlined icon-fill">link</span>
+          <span class="logo-text">LinkDrop</span>
+        </div>
+        <div class="avatar">L</div>
+      </div>
+    </header>
+
+    <div class="form-header">
+      <div class="share-hero">
+        <div class="share-badge">
+          <span class="material-symbols-outlined" style="font-size:15px">share</span>
+          Shared link received
+        </div>
+        <h1>Save Link</h1>
+        <p style="color:var(--on-surface-var);font-size:15px">Add details to organize this bookmark.</p>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <div>
+        <label class="field-label">Source URL</label>
+        <div class="field-input-wrap">
+          <span class="material-symbols-outlined">link</span>
+          <input id="share-form-url" class="field-input" type="url" readonly />
+        </div>
+      </div>
+      <div>
+        <label class="field-label" for="share-form-title">Title</label>
+        <div class="field-input-wrap">
+          <span class="material-symbols-outlined">title</span>
+          <input id="share-form-title" class="field-input" type="text"
+            placeholder="Give it a memorable name…" />
+        </div>
+      </div>
+      <div>
+        <label class="field-label">Category</label>
+        <div id="share-cats" class="cat-pills"></div>
+      </div>
+      <div>
+        <label class="field-label" for="share-form-note">Note <span style="font-weight:400;color:var(--on-surface-var)">(Optional)</span></label>
+        <textarea id="share-form-note" class="textarea-field"
+          placeholder="Add your thoughts…" rows="3"></textarea>
+      </div>
+      <button class="save-btn" onclick="saveSharedLink()">
+        <span class="material-symbols-outlined">bookmark_add</span>
+        Save Bookmark
+      </button>
+    </div>
+  </div>
+
+  <!-- ── SETTINGS PAGE ─────────────────────────────────────── -->
+  <div id="page-settings" class="page">
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo" onclick="navigate('home')">
+          <span class="material-symbols-outlined icon-fill">link</span>
+          <span class="logo-text">LinkDrop</span>
+        </div>
+        <div class="avatar">L</div>
+      </div>
+    </header>
+
+    <div style="max-width:640px;margin:0 auto;width:100%;padding:24px 20px;display:flex;flex-direction:column;gap:20px">
+      <div>
+        <h1 style="font-size:28px;font-weight:700;letter-spacing:-0.3px">Settings</h1>
+        <p style="font-size:15px;color:var(--on-surface-var);margin-top:4px">Manage your LinkDrop data</p>
+      </div>
+
+      <!-- Stats card -->
+      <div class="form-card" style="margin:0">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <p style="font-size:13px;color:var(--on-surface-var);font-weight:500;text-transform:uppercase;letter-spacing:0.5px">Total Links Saved</p>
+            <p id="settings-total" style="font-size:40px;font-weight:700;color:var(--primary);line-height:1.1;margin-top:4px">0</p>
+          </div>
+          <div style="width:64px;height:64px;border-radius:50%;background:rgba(0,108,12,0.1);display:flex;align-items:center;justify-content:center">
+            <span class="material-symbols-outlined icon-fill" style="font-size:32px;color:var(--primary)">bookmarks</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category breakdown -->
+      <div class="form-card" style="margin:0">
+        <h2 style="font-size:17px;font-weight:700;margin-bottom:4px">By Category</h2>
+        <div id="settings-cat-list"></div>
+      </div>
+
+      <!-- Actions -->
+      <div class="form-card" style="margin:0;gap:12px">
+        <h2 style="font-size:17px;font-weight:700">Data</h2>
+
+        <!-- Install PWA -->
+        <button id="install-btn"
+          style="display:none;width:100%;padding:13px 16px;border-radius:var(--radius-md);border:1.5px solid rgba(0,108,12,0.3);background:rgba(0,108,12,0.06);color:var(--primary);font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;align-items:center;gap:10px;transition:all 0.2s">
+          <span class="material-symbols-outlined">install_mobile</span>
+          Install App on Device
+        </button>
+
+        <button onclick="exportLinks()"
+          style="width:100%;padding:13px 16px;border-radius:var(--radius-md);border:1.5px solid rgba(190,202,183,0.5);background:var(--surface-low);color:var(--on-surface);font-family:'Inter',sans-serif;font-size:15px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:10px;transition:background 0.2s">
+          <span class="material-symbols-outlined">download</span>
+          Export Links (JSON)
+        </button>
+
+        <label style="width:100%;padding:13px 16px;border-radius:var(--radius-md);border:1.5px solid rgba(190,202,183,0.5);background:var(--surface-low);color:var(--on-surface);font-family:'Inter',sans-serif;font-size:15px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:10px;transition:background 0.2s">
+          <span class="material-symbols-outlined">upload</span>
+          Import Links (JSON)
+          <input type="file" accept=".json" style="display:none" onchange="importLinks(event)" />
+        </label>
+
+        <button onclick="clearAllLinks()"
+          style="width:100%;padding:13px 16px;border-radius:var(--radius-md);border:1.5px solid rgba(186,26,26,0.25);background:rgba(186,26,26,0.05);color:var(--error);font-family:'Inter',sans-serif;font-size:15px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:10px;transition:background 0.2s">
+          <span class="material-symbols-outlined">delete_sweep</span>
+          Clear All Links
+        </button>
+      </div>
+
+      <!-- About -->
+      <div class="form-card" style="margin:0">
+        <p style="font-size:14px;color:var(--on-surface-var);text-align:center;line-height:1.6">
+          <strong style="color:var(--primary)">LinkDrop v1.0</strong><br/>
+          Your personal link inbox. Save, search, and organize links from any app using the native Share button.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /#app -->
+
+<!-- ── BOTTOM NAV ──────────────────────────────────────────── -->
+<nav class="bottom-nav">
+  <button id="nav-home" class="nav-btn" onclick="navigate('home'); renderHome();" title="Home">
+    <span class="material-symbols-outlined">grid_view</span>
+  </button>
+  <button id="nav-add" class="nav-btn" onclick="navigate('add'); initFormPage();" title="Add Link">
+    <span class="material-symbols-outlined icon-fill" style="font-size:28px">add_circle</span>
+  </button>
+  <button id="nav-settings" class="nav-btn" onclick="navigate('settings'); renderSettings();" title="Settings">
+    <span class="material-symbols-outlined">settings</span>
+  </button>
+</nav>
+
+<!-- FAB (visible on home) -->
+<button class="fab" id="fab" onclick="navigate('add'); initFormPage();" title="Add Link" aria-label="Add link">
+  <span class="material-symbols-outlined">add</span>
+</button>
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
+<!-- Delete Confirmation Modal -->
+<div id="modal" class="modal-overlay">
+  <div class="modal">
+    <h2>Delete link?</h2>
+    <p>This will permanently remove the link from your collection. This action cannot be undone.</p>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="cancelDelete()">Cancel</button>
+      <button class="modal-confirm" onclick="doDelete()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>

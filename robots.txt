@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://your-linkdrop-url.vercel.app/sitemap.xml
